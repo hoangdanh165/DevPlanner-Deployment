@@ -7,6 +7,16 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
 
 ---
 
+## ✨ Overview
+
+### Landing Page
+<img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/502c2f16-7d26-4657-b47d-f7bcf4dfc2b1" />
+
+### Home Page
+<img width="1919" height="960" alt="image" src="https://github.com/user-attachments/assets/09151f33-6255-41de-817d-125ba2315add" />
+
+---
+
 ## ✨ Features
 
 ### 🔮 AI-Driven Project Generation
@@ -38,7 +48,7 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
 - Long-running generation streaming updates through FastAPI WebSocket Server
 - PostgreSQL with rich relational schema
 
-### 🖥️ Frontend (Nuxt 3 / React UI)
+### 🖥️ Frontend (React)
 
 - Clean, responsive UI
 - Realtime progress streaming for AI generation
