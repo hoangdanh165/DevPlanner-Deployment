@@ -1,12 +1,25 @@
 services:
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  # db:
+  #   image: postgres:latest
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - app-network
+  
+  nginx:
+    image: nginx:stable
+    container_name: nginx
+    depends_on:
+      - django
+      - react
+    ports:
+      - "80:80"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ../nginx/nginx.dev.conf:/etc/nginx/nginx.conf:ro
     networks:
       - app-network
 
@@ -17,73 +30,59 @@ services:
 
   django:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
-    environment:
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
-      - DATABASE_URL=${DATABASE_URL}
+      context: ../backend
+      dockerfile: Dockerfile.backend
+    env_file:
+      - ./envs/backend.docker.env
     depends_on:
-      - db
+      # - db
       - redis
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ../backend:/app
     networks:
       - app-network
 
   celery:
     build:
-      context: ./backend
+      context: ../backend
       dockerfile: Dockerfile.celery
     command: celery -A backend worker -l INFO -Q maintenance,celery
-    environment:
-      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
+    env_file:
+      - ./envs/backend.docker.env
     depends_on:
       - redis
-      - db
+      - django
+      # - db
     volumes:
-      - ./backend:/app
-    networks:
-      - app-network
-
-  celery-beat:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.celery
-    command: celery -A backend beat -l INFO
-    environment:
-      - CELERY_BROKER_URL=${CELERY_BROKER_URL}
-      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
-      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-backend.settings}
-    depends_on:
-      - redis
-      - db
-    volumes:
-      - ./backend:/app
+      - ../backend:/app
     networks:
       - app-network
 
   fastapi:
     build:
-      context: ./websocket
-      dockerfile: Dockerfile
+      context: ../websocket
+      dockerfile: Dockerfile.ws
+    env_file:
+      - ./envs/ws.docker.env
     ports:
       - "8001:8001"
     volumes:
-      - ./websocket:/app
+      - ../websocket:/app
     networks:
       - app-network
 
   react:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: ../frontend
+      dockerfile: Dockerfile.frontend
+    env_file:
+      - ./envs/frontend.docker.env
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      - ../frontend:/app
       - node_modules:/app/node_modules
     networks:
       - app-network
@@ -93,5 +92,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
+  # postgres_data:
   node_modules: {}
