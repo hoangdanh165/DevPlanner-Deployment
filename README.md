@@ -1,4 +1,4 @@
-# 🚀 DevPlanner – AI Project Planner
+# DevPlanner – AI Project Planner
 
 _Your intelligent assistant for planning, structuring, and documenting your own software projects._
 
@@ -7,7 +7,7 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
 
 ---
 
-## ✨ Overview
+## Overview
 
 ### Landing Page
 <img width="1919" height="959" alt="image" src="https://github.com/user-attachments/assets/502c2f16-7d26-4657-b47d-f7bcf4dfc2b1" />
@@ -17,9 +17,9 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔮 AI-Driven Project Generation
+### AI-Driven Project Generation
 
 - Turn one prompt into a fully structured project plan
 - Automatic generation of:
@@ -33,14 +33,14 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
   - Sequence Diagrams
   - Documentation Sections
 
-### 🧩 Modular Planning Structure
+### Modular Planning Structure
 
 - Projects are divided into Sections
 - Each section has multiple Versions (historical generations)
 - Consistent cross-section reasoning using custom AI orchestration
 - Saved plans can be reused as templates for future projects
 
-### ⚙️ Backend (Django + Celery)
+### Backend (Django + Celery)
 
 - RESTful APIs for project, sections, versions, diagrams, tasks
 - Asynchronous AI generation tasks using Celery
@@ -48,7 +48,7 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
 - Long-running generation streaming updates through FastAPI WebSocket Server
 - PostgreSQL with rich relational schema
 
-### 🖥️ Frontend (React)
+### Frontend (React)
 
 - Clean, responsive UI
 - Realtime progress streaming for AI generation
@@ -57,13 +57,13 @@ Built with **Django**, **React**, **Celery**, **FastAPI**, and **Redis**, DevPla
 - Dark/light themes
 - Export project as **PDF**, **DOCX**, or **Markdown**
 
-### 🔌 Future Integrations
+### Future Integrations
 
 - Trello / Jira task export
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```mermaid
 flowchart LR
@@ -86,7 +86,7 @@ flowchart LR
 
 ---
 
-## 🧪 Requirements
+## Requirements
 
 ```bash
 Python 3.10+
@@ -102,16 +102,16 @@ Docker + Docker Compose (Recommended)
 
 ---
 
-## 🔧 Local Development Setup
+## Local Development Setup
 
-### 1️⃣ Clone Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/hoangdanh165/DevPlanner-Deployment.git
 cd devplanner-deployment
 ```
 
-### 2️⃣ Backend Setup (Django)
+### Backend Setup (Django)
 
 ```bash
 cd backend
@@ -121,7 +121,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-### 3️⃣ Frontend Setup (React)
+### Frontend Setup (React)
 
 ```bash
 cd frontend
@@ -129,7 +129,7 @@ npm install
 npm run dev
 ```
 
-### 4️⃣ WebSocket Server (FastAPI)
+### WebSocket Server (FastAPI)
 
 ```bash
 cd websocket
@@ -137,18 +137,18 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
 ```
 
-### 5️⃣ Celery Worker
+### Celery Worker
 
 ```bash
 celery -A backend worker -l INFO -P solo
 ```
 
-### 🐳 Run with Docker (Recommended)
+### Run with Docker (Recommended)
 
 ```bash
 docker compose up --build
 ```
 
-## 📜 License
+## License
 
 MIT License — free for personal & commercial use.
